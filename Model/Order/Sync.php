@@ -260,14 +260,8 @@ class Sync extends AbstractModel
             //$parent = \Magento\Framework\App\ObjectManager::getInstance()->create('Magento\Sales\Model\Order\Item')->load($item->getParentItemId());
             $parent = $this->_modelOrderItemFactory->create()->load($item->getParentItemId());
         }
-        if ($item->getProductType() == GroupedProduct::TYPE_CODE) {
-            //$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-            //$groupProductObject = $objectManager->create('Magento\GroupedProduct\Model\Product\Type\Grouped');
-            $groupProduct = $this->_groupedProduct->getParentIdsByChild($item->getProductId());
-            $itemId = $groupProduct[0];
-        } else {
-            $itemId = $item->getProductId();
-        }
+
+        $itemId = $item->getProductId();
 
         $response = $this->_apiActionProducttracking
             ->setStore($this->_storeModelStoreManagerInterface->getStore($item->getStoreId()))
